@@ -1,0 +1,14 @@
+---
+pre-commit:
+  parallel: true
+  commands:
+    golangci-lint:
+      glob: "*.go"
+      run: golangci-lint run --fix {files}
+    govet:
+      files: git ls-files -m
+      glob: "*.go"
+      run: go vet {files}
+  actionlint:
+    glob: "./.github/workflows/*.{yml,yaml}"
+    run: actionlint {files}

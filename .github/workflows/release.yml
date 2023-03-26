@@ -1,0 +1,36 @@
+---
+name: "release ennbu"
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+permissions:
+  contents: write
+  packages: write
+  issues: write
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+jobs:
+  releases:
+    timeout-minutes: 20
+    name: Release Go Binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: "./go.mod"
+      - uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: u-yas
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: goreleaser/goreleaser-action@v4.2.0
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,6 @@
+FROM debian:bullseye-slim
+# ARG VERSION
+WORKDIR /
+COPY ennbu  /usr/bin/ennbu
+
+ENTRYPOINT ["/usr/bin/ennbu"]

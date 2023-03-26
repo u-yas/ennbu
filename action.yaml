@@ -1,0 +1,16 @@
+---
+name: 'Run ennbu'
+description: 'GitHub Action for ennbu, a tool edit .env file'
+branding:
+  icon: 'octagon'
+  color: 'gray-dark'
+inputs:
+  commands:
+    description: ennbu subcommands
+    required: true
+  envPath:
+    description: .env file path
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

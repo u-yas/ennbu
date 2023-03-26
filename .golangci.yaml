@@ -1,0 +1,8 @@
+# Options for analysis running.
+run:
+  concurrency: 8
+  timeout: 5m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs-use-default: false
+  allow-parallel-runners: true

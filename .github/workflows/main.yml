@@ -1,0 +1,32 @@
+---
+name: "Custom Action test"
+on:
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+  packages: read
+jobs:
+  build:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: "./go.mod"
+      - name: go mod download
+        run: |
+          go mod download
+          mv .env.example .env
+      - name: replace APP_ENV
+        uses: ./
+        with:
+          envPath: .env
+          commands: |
+            version
+            set -k APP_ENV test
+            list --json
+      - name: go test
+        run: go test ./...

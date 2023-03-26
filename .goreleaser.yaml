@@ -1,0 +1,61 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    ldflags:
+      - -X github.com/u-yas/ennbu/cmd.version={{.Version}}
+    main: ./main.go
+    binary: ennbu
+    goarch:
+      - amd64
+      - arm64
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- tolower title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+    - goos: windows
+      format: zip
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+dockers:
+
+  - image_templates: ["ghcr.io/u-yas/ennbu:{{ .Version }}","ghcr.io/u-yas/ennbu:latest"]
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile.release
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.Commit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.url=https://github.com/u-yas/ennbu"
+      - "--label=org.label-schema.schema-version=1.0"
+      - "--label=org.label-schema.name={{.ProjectName}}"
+      - "--label=org.label-schema.url=https://github.com/u-yas/ennbu"
+      - "--label=org.label-schema.version={{.Version}}"
+      - "--label=org.label-schema.build-date={{.Date}}"
