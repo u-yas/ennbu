@@ -1,5 +1,10 @@
 
-# ennbu - .env Editor CLI
+# ennbu 
+
+
+<img src="./docs/ennbu-logo.png" alt="logo" />
+
+**.env utility CLI**
 
 `ennbu` is a command-line interface (CLI) tool for managing .env files in your projects, written in Go. It allows you to easily set, replace, list, and get values of keys within your .env files.
 
