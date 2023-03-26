@@ -95,14 +95,16 @@ ennbu list --json -e .env
 To set a new value for a key in a .env file, use the `set` command:
 
 ```bash
-ennbu set -k KEY_NAME -v VALUE -e .env
+ennbu set -e .env -k KEY_NAME VALUE
 ```
 
 #### Replace
 
 To replace a value for an existing key in a .env file, use the `replace` command:
 
-echo NEW_VALUE | ennbu replace -k KEY_NAME -e .env
+```bash
+echo NEW_VALUE | ennbu replace  -e .env -k KEY_NAME
+```
 
 ## Contributing
 
