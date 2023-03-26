@@ -22,7 +22,7 @@ $ ennbu set -e .env.development -k KEY VALUE
 }
 
 func init() {
-
+	setCmd.Flags().BoolP(set.FlagEscape, "e", false, "value is escaped")
 	_ = setCmd.MarkFlagRequired(flags.FlagKey)
 	rootCmd.AddCommand(setCmd)
 }

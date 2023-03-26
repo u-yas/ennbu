@@ -1,6 +1,6 @@
 package flags
 
 const (
-	FlagEnvFile string = "envFile"
+	FlagEnvFile string = "file"
 	FlagKey     string = "key"
 )

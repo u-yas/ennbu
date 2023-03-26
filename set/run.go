@@ -6,12 +6,23 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/u-yas/ennbu/env"
+	"github.com/u-yas/ennbu/flags"
 )
 
 func Run(cmd *cobra.Command, args []string) error {
-	key, _ := cmd.Flags().GetString("key")
-	envFilePath, _ := cmd.Flags().GetString("envFile")
+	key, _ := cmd.Flags().GetString(flags.FlagKey)
+	envFilePath, _ := cmd.Flags().GetString(flags.FlagEnvFile)
+	escapeFlag, _ := cmd.Flags().GetBool(FlagEscape)
+
 	value := args[0]
+	if escapeFlag {
+		value = env.EscapeSpecialChars(value)
+	}
+	// Check if the value contains newline characters and wrap it with double quotes if necessary
+	if strings.Contains(value, "\n") {
+		value = fmt.Sprintf("\"%s\"", value)
+	}
 
 	envContent, err := os.ReadFile(envFilePath)
 	if err != nil {

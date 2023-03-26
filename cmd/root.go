@@ -24,6 +24,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP(flags.FlagEnvFile, "e", ".env", "Path to the .env file")
+	rootCmd.PersistentFlags().StringP(flags.FlagEnvFile, "f", ".env", "Path to the .env file")
 	rootCmd.PersistentFlags().StringP(flags.FlagKey, "k", "", "Key to the .env file")
 }

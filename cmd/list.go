@@ -14,9 +14,9 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all key-value pairs in .env file",
 	Example: heredoc.Doc(`
-$ ennbu list
-$ ennbu list -e .env.development
-$ ennbu list --json
+	$ ennbu list
+	$ ennbu list -e .env.development
+	$ ennbu list --json
 `),
 	RunE: list.Run,
 }
