@@ -59,3 +59,19 @@ dockers:
       - "--label=org.label-schema.url=https://github.com/u-yas/ennbu"
       - "--label=org.label-schema.version={{.Version}}"
       - "--label=org.label-schema.build-date={{.Date}}"
+  - image_templates: ["ghcr.io/u-yas/ennbu:{{ .Version }}","ghcr.io/u-yas/ennbu:latest"]
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile.release
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.Commit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.url=https://github.com/u-yas/ennbu"
+      - "--label=org.label-schema.schema-version=1.0"
+      - "--label=org.label-schema.name={{.ProjectName}}"
+      - "--label=org.label-schema.url=https://github.com/u-yas/ennbu"
+      - "--label=org.label-schema.version={{.Version}}"
+      - "--label=org.label-schema.build-date={{.Date}}"
