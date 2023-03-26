@@ -11,6 +11,5 @@ commands_length=${#commands[@]}
 for ((i = 0; i < commands_length; i++)); do
   command=${commands[$i]}
   command=$(echo "$command" | sed -e 's/^[[:space:]]*//')
-  echo "Running command: $command"
-  ennbu $command
+  eval 'ennbu $command'
 done
