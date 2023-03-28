@@ -2,9 +2,6 @@ package replace
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/u-yas/ennbu/env"
@@ -21,36 +18,22 @@ func Run(cmd *cobra.Command, args []string) error {
 		value = env.EscapeSpecialChars(value)
 	}
 
-	// Check if the value contains newline characters and wrap it with double quotes if necessary
-	if strings.Contains(value, "\n") {
-		value = fmt.Sprintf("\"%s\"", value)
-	}
+	e, err := env.ReadEnv(envFilePath)
 
-	fileName := filepath.Base(envFilePath)
-	envContent, err := os.ReadFile(envFilePath)
 	if err != nil {
-		return fmt.Errorf("error reading %s: %w", fileName, err)
+		return fmt.Errorf("failed to read env file: %w", err)
 	}
 
-	lines := strings.Split(string(envContent), "\n")
-	found := false
-
-	for i, line := range lines {
-		if strings.HasPrefix(line, key+"=") {
-			lines[i] = key + "=" + value
-			found = true
-			break
-		}
+	// replace cmd should not add new key
+	if _, ok := e[key]; !ok {
+		return fmt.Errorf("key not found: %s", key)
 	}
 
-	if !found {
-		return fmt.Errorf("key %s not found in %s", key, fileName)
-	}
+	e[key] = value
 
-	newContent := strings.Join(lines, "\n")
-	err = os.WriteFile(envFilePath, []byte(newContent), 0644)
+	err = env.WriteEnv(e, envFilePath)
 	if err != nil {
-		return fmt.Errorf("error writing %s: %w", fileName, err)
+		return fmt.Errorf("failed to write env file: %w", err)
 	}
 	return nil
 }
