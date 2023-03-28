@@ -2,8 +2,6 @@ package set
 
 import (
 	"fmt"
-	"os"
-	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/u-yas/ennbu/env"
@@ -19,35 +17,18 @@ func Run(cmd *cobra.Command, args []string) error {
 	if escapeFlag {
 		value = env.EscapeSpecialChars(value)
 	}
-	// Check if the value contains newline characters and wrap it with double quotes if necessary
-	if strings.Contains(value, "\n") {
-		value = fmt.Sprintf("\"%s\"", value)
-	}
 
-	envContent, err := os.ReadFile(envFilePath)
+	e, err := env.ReadEnv(envFilePath)
+
 	if err != nil {
-		return fmt.Errorf("error reading %s: %w", envFilePath, err)
+		return fmt.Errorf("failed to read env file: %w", err)
 	}
 
-	lines := strings.Split(string(envContent), "\n")
-	found := false
+	e[key] = value
 
-	for i, line := range lines {
-		if strings.HasPrefix(line, key+"=") {
-			lines[i] = key + "=" + value
-			found = true
-			break
-		}
-	}
-
-	if !found {
-		lines = append(lines, key+"="+value)
-	}
-
-	newContent := strings.Join(lines, "\n")
-	err = os.WriteFile(envFilePath, []byte(newContent), 0644)
+	err = env.WriteEnv(e, envFilePath)
 	if err != nil {
-		return fmt.Errorf("error writing %s: %w", envFilePath, err)
+		return fmt.Errorf("failed to write env file: %w", err)
 	}
 
 	return nil

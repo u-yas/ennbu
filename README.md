@@ -1,10 +1,9 @@
 
-# ennbu 
+# ennbu
 
+![ennbu logo](./docs/ennbu-logo.png)
 
-<img src="./docs/ennbu-logo.png" alt="logo" />
-
-**.env utility CLI**
+## .env utility CLI
 
 `ennbu` is a command-line interface (CLI) tool for managing .env files in your projects, written in Go. It allows you to easily set, replace, list, and get values of keys within your .env files.
 
@@ -60,7 +59,7 @@ jobs:
       - name: go mod download
         run: go mod download
       - name: replace APP_ENV
-        uses: u-yas/ennbu@v0.0.1
+        uses: u-yas/ennbu@v0.0.4
         with:
           envPath: .env
           commands: |
@@ -78,7 +77,26 @@ jobs:
 To get the value of a specific key in a .env file, use the `get` command:
 
 ```bash
-ennbu get -k KEY_NAME -e .env
+ennbu get KEY_NAME -f .env
+```
+
+`--unescape` or `-u`
+
+```text
+# .env
+KEY_NAME="aa\nbbb\n\tccc"
+```
+
+```bash
+# normally
+ennbu get KEY_NAME
+# aa\nbbb\n\tccc
+
+# unescape
+ennbu get KEY_NAME -u
+#aa
+#bb
+# cc
 ```
 
 #### List
@@ -86,21 +104,23 @@ ennbu get -k KEY_NAME -e .env
 To list all key-value pairs in a .env file, use the `list` command:
 
 ```bash
-ennbu list -e .env
+ennbu list -f .env
 ```
 
 To list the key-value pairs in JSON format, use the `--json` flag:
 
 ```bash
-ennbu list --json -e .env
+ennbu list --json -f .env
 ```
+
+![ennbu list --json output](./docs/list-json.png)
 
 #### Set
 
 To set a new value for a key in a .env file, use the `set` command:
 
 ```bash
-ennbu set -e .env -k KEY_NAME VALUE
+ennbu set -f .env -k KEY_NAME VALUE
 ```
 
 #### Replace
@@ -108,7 +128,7 @@ ennbu set -e .env -k KEY_NAME VALUE
 To replace a value for an existing key in a .env file, use the `replace` command:
 
 ```bash
-echo NEW_VALUE | ennbu replace  -e .env -k KEY_NAME
+echo NEW_VALUE | ennbu replace  -f .env -k KEY_NAME
 ```
 
 ## Contributing

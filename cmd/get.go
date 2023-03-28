@@ -15,14 +15,14 @@ var getCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Get the value of a specified key in .env file",
 	Example: heredoc.Doc(`
-$ ennbu get KEY
-$ ennbu get -e .env.development
+		$ ennbu get KEY
+		$ ennbu get -e .env.development
 `),
 	RunE: get.Run,
 }
 
 func init() {
 	_ = getCmd.MarkFlagRequired(flags.FlagKey)
-
+	getCmd.Flags().BoolP(get.FlagUnescape, "u", false, "Unescape special characters")
 	rootCmd.AddCommand(getCmd)
 }
