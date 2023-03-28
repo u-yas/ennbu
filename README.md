@@ -90,13 +90,13 @@ KEY_NAME="aa\nbbb\n\tccc"
 ```bash
 # normally
 ennbu get KEY_NAME
-# aa\nbbb\n\tccc
+# aa\nbbb\nccc
 
 # unescape
 ennbu get KEY_NAME -u
 #aa
 #bb
-# cc
+#cc
 ```
 
 #### List
@@ -129,6 +129,16 @@ To replace a value for an existing key in a .env file, use the `replace` command
 
 ```bash
 echo NEW_VALUE | ennbu replace  -f .env -k KEY_NAME
+```
+
+`--escape` flags escape value
+
+``bash
+ennbu set -k PRIVATE_KEY -e --  "$(cat id_ed25519)"
+```
+
+```text
+PRIVATE_KEY=
 ```
 
 ## Contributing

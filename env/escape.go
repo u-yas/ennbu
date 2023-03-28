@@ -2,7 +2,6 @@ package env
 
 import (
 	"bytes"
-	"fmt"
 )
 
 func EscapeSpecialChars(value string) string {
@@ -19,5 +18,5 @@ func EscapeSpecialChars(value string) string {
 			buf.WriteRune(r)
 		}
 	}
-	return fmt.Sprintf("\"%s\"", buf.String())
+	return buf.String()
 }
