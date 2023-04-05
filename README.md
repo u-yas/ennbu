@@ -134,11 +134,24 @@ echo NEW_VALUE | ennbu replace  -f .env -k KEY_NAME
 `--escape` flags escape value
 
 ```bash
-ennbu set -k PRIVATE_KEY -e --  "$(cat id_ed25519)"
+ennbu set -k A "aaa
+bbb
+
+cc"
 ```
 
 ```text
-PRIVATE_KEY=
+A="aaa\nbbb\n\ncc"
+```
+
+`--importFile` flags enabled, read content from args
+
+```bash
+ennbu set -k PRIVATE_KEY --importFile ~/.ssh/id_ed25519 --escape
+```
+
+```text
+PRIVATE_KEY="-----BEGIN OPENSSH PRIVATE KEY-----\\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\n-----END OPENSSH PRIVATE KEY-----"
 ```
 
 ## Contributing
