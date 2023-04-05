@@ -133,7 +133,7 @@ echo NEW_VALUE | ennbu replace  -f .env -k KEY_NAME
 
 `--escape` flags escape value
 
-``bash
+```bash
 ennbu set -k PRIVATE_KEY -e --  "$(cat id_ed25519)"
 ```
 
