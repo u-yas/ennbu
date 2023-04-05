@@ -1,5 +1,5 @@
 ---
-name: 'Run ennbu'
+name: 'Ennbu Action'
 description: 'GitHub Action for ennbu, a tool edit .env file'
 branding:
   icon: 'octagon'
