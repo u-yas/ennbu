@@ -1,5 +1,6 @@
 package set
 
 const (
-	FlagEscape = "escape"
+	FlagEscape     = "escape"
+	FlagImportFile = "importFile"
 )

@@ -1,5 +1,6 @@
 package replace
 
 const (
-	FlagEscape = "escape"
+	FlagEscape     = "escape"
+	FlagImportFile = "importFile"
 )

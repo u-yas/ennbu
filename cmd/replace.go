@@ -23,6 +23,7 @@ $ ennbu replace -e .env.development -k KEY VALUE
 
 func init() {
 	replaceCmd.Flags().BoolP(replace.FlagEscape, "e", false, "value is escaped")
+	replaceCmd.Flags().BoolP(replace.FlagImportFile, "i", false, "import file path")
 	_ = replaceCmd.MarkFlagRequired(flags.FlagKey)
 
 	rootCmd.AddCommand(replaceCmd)
