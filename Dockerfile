@@ -1,4 +1,4 @@
-FROM ghcr.io/u-yas/ennbu:0.0.5
+FROM ghcr.io/u-yas/ennbu:0.0.7
 
 COPY entrypoint.sh /entrypoint.sh
 
