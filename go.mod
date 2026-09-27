@@ -6,7 +6,7 @@ require (
 	github.com/MakeNowJust/heredoc/v2 v2.0.1
 	github.com/joho/godotenv v1.5.1
 	github.com/spf13/cobra v1.7.0
-	github.com/tidwall/pretty v1.2.1
+	github.com/tidwall/pretty v1.2.2
 )
 
 require (
